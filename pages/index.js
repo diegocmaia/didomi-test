@@ -1,6 +1,21 @@
 import Head from 'next/head'
 
 export default function Home() {
+
+  function deleteAllCookiesAndShowBanner() {
+    var cookies = document.cookie.split(";");
+  
+    for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i];
+        var eqPos = cookie.indexOf("=");
+        var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    }
+
+    localStorage.clear();
+    location.reload();
+  }
+
   return (
     <div className="container">
       <Head>
@@ -12,6 +27,9 @@ export default function Home() {
         <h1 className="title">
           Testing Didomi!
         </h1>
+        <div>
+          <input type="button" value="Delete cookies and show banner" onClick={deleteAllCookiesAndShowBanner}/>
+        </div>
       </main>
 
       <style jsx>{`
